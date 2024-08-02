@@ -1,0 +1,53 @@
+{% load render_partial %}
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/static/assets/css/bootstrap/bootstrap-reboot.rtl.min.css">
+    <link rel="stylesheet" href="/static/assets/css/bootstrap/bootstrap.rtl.min.css">
+    <link rel="stylesheet" href="/static/assets/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="/static/assets/plugins/owlcarousel/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="/static/assets/plugins/owlcarousel/assets/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/static/assets/css/style.css">
+    <link rel="stylesheet" href="/static/assets/css/cart.css">
+    <link rel="stylesheet" href="/static/assets/css/address.css">
+    <link rel="stylesheet" href="/static/assets/css/payment.css">
+    <link rel="stylesheet" href="/static/assets/css/filter.css">
+    <link rel="stylesheet" href="/static/assets/css/product.css">
+    <link rel="stylesheet" href="/static/assets/css/profile.css">
+    <link rel="stylesheet" href="/static/assets/css/login.css">
+    <title>فروشگاه آمازون</title>
+</head>
+<body>
+        <!-- start header -->
+            {% render_partial 'home.views.header' %}
+        <!-- end header -->
+        
+
+    <!-- start body -->
+    {% block contend %}
+    {% endblock %}
+    <!-- end body -->
+        
+               <!-- start footer -->
+            {% render_partial 'home.views.footer' %}
+        <!-- end footer -->
+        
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/static/assets/js/jQuery-3.5.1.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="/static/assets/js/bootstrap/bootstrap.min.js" ></script>
+    <script src="/static/assets/js/bootstrap/bootstrap.bundle.min.js" ></script>
+    <script src="/static/assets/plugins/owlcarousel/owl.carousel.min.js"></script>
+    <script src="/static/assets/js/main.js" ></script>
+</body>
+</html>
+
+
+
+
