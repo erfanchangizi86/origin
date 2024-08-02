@@ -31,10 +31,12 @@ class Product(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
+        self.name = self.name.title()
         super().save(*args, **kwargs)
 
-    # def get_absolute_url(self):
-    #     return reverse("products_detail", args=[self.slug])
+    def get_absolute_url(self):
+        return reverse("detail", args={'slug':self.slug,'id':self.id})
+
 
     class Meta:
         verbose_name = 'محصول '
