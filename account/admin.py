@@ -7,3 +7,6 @@ from account.models import User
 @admin.register(User)
 class admin_user(admin.ModelAdmin):
     list_display = ('username', 'email', 'is_staff')
+
+
+
