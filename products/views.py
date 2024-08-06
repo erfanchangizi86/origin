@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
-
+from django.contrib.postgres.search import SearchVector
 from .models import Product
 from utils.category import get_all_categories
 
@@ -8,6 +8,9 @@ from utils.category import get_all_categories
 
 
 class productListView(ListView):
+    """
+    This class is for displaying the list of products and for filtering them
+    """
     model = Product
     context_object_name = 'products'
     template_name = 'product/list_product.html'
