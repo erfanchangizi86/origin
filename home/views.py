@@ -8,6 +8,5 @@ from django.views.generic import TemplateView
 class header(TemplateView):
     template_name = 'repository/header.html'
 
-
 class footer(TemplateView):
     template_name = 'repository/footer.html'

@@ -9,7 +9,6 @@ class test_mixin(models.Model):
     title = models.CharField(max_length=100, verbose_name="عنوان(به فارسی)")
     url_name = models.CharField(max_length=300, verbose_name="عنوان در url(به انگلیسی)")
     is_active = models.BooleanField(default=True, verbose_name="فعال/غیرفعال")
-    is_deleted = models.BooleanField(default=False, verbose_name="حذف شده/حذف نشده")
 
     def save(self, *args, **kwargs):
         self.url_name = self.url_name.title()
@@ -36,6 +35,7 @@ class category(test_mixin):
 
 class Brands(test_mixin):
     title_english = models.CharField(max_length=200, verbose_name="نام برند(به انگلیسی)")
+    is_deleted = models.BooleanField(default=False, verbose_name="حذف شده/حذف نشده")
 
 
 class Product(models.Model):
