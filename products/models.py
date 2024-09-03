@@ -9,6 +9,7 @@ class test_mixin(models.Model):
     title = models.CharField(max_length=100, verbose_name="عنوان(به فارسی)")
     url_name = models.CharField(max_length=300, verbose_name="عنوان در url(به انگلیسی)")
     is_active = models.BooleanField(default=True, verbose_name="فعال/غیرفعال")
+    is_deleted = models.BooleanField(default=False, verbose_name="حذف شده/حذف نشده")
 
     def save(self, *args, **kwargs):
         self.url_name = self.url_name.title()
@@ -35,7 +36,10 @@ class category(test_mixin):
 
 class Brands(test_mixin):
     title_english = models.CharField(max_length=200, verbose_name="نام برند(به انگلیسی)")
-    is_deleted = models.BooleanField(default=False, verbose_name="حذف شده/حذف نشده")
+
+    class Meta:
+        verbose_name = 'برند'
+        verbose_name_plural = 'برند ها'
 
 
 class Product(models.Model):
@@ -54,7 +58,7 @@ class Product(models.Model):
 
     category_product = models.ManyToManyField(category, verbose_name="دسته بندی",
                                               db_index=True, null=True)
-    # brand = models.ForeignKey(Brands, on_delete=models.CASCADE, verbose_name='برند', null=True, blank=True)
+    brand = models.ForeignKey(Brands, on_delete=models.CASCADE, verbose_name='برند', null=True, blank=True)
     # comments = GenericRelation('Comment')
 
     def __str__(self):
