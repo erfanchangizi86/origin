@@ -845,3 +845,12 @@ body {
     line-height: 2rem;
     font-size: 0.8rem;
 }
+
+
+.test{
+    font-size: 20px; /* اندازه ایکن */
+    color: rgba(51, 51, 51, 0.97); /* رنگ ایکن */
+    background-color: rgba(0,0,0,0); /* پس‌زمینه شفاف */
+    border: none; /* حذف کادر */
+    padding: 10px; /* فاصله داخلی */
+}

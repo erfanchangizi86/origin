@@ -9,5 +9,5 @@ error = {
 class SearchForm(forms.Form):
     search = forms.CharField(max_length=120, error_messages=error,
                              widget=forms.TextInput(
-                                 attrs={'class': 'form-control', 'placeholder': "جستجو ..."})
+                                 attrs={ 'placeholder': "جستجو ...",'autocomplete':"off"})
                              )

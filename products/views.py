@@ -1,8 +1,10 @@
-from django.db.models import Max
+from django.db.models import Max, Q
 from django.http import HttpResponseBadRequest
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from django.contrib.postgres.search import SearchVector
+
+from .forms import SearchForm
 from .models import Product, Brands
 from utils.category import get_all_categories
 from ffmpeg import input
@@ -39,6 +41,12 @@ class productListView(ListView):
             queryset = queryset.filter(brand_id__in=brand_ids)
         else:
             queryset = queryset.filter(is_active=True)
+
+            search = self.request.GET.get('search')
+            if search is not None and search != '':
+                queryset = queryset.filter(Q(name__icontains=search)
+                                       | Q(short_body__icontains=search)
+                                       | Q(body__icontains=search))
         return queryset
 
     def get_context_data(self,*args,**kwargs):
@@ -52,6 +60,10 @@ class productListView(ListView):
         brand_ids= self.request.GET.getlist('brand')
         if brand_ids is not None:
             context['filter_brand'] = Brands.objects.filter(id__in=brand_ids)
+            context['brand_ids'] = brand_ids
+        search = self.request.GET.get('search')
+        if search is not None and search != '':
+            context['search'] = search
         return context
 
 

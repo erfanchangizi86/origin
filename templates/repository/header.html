@@ -4,7 +4,6 @@
         <section class="top-header">
             <section class="container-xxl ">
                 <section class="d-md-flex justify-content-md-between align-items-md-center py-3">
-
                     <section class="d-flex justify-content-between align-items-center d-md-block">
                         <a class="text-decoration-none" href="index.html"><img src="/static/assets/images/logo/8.png" alt="logo"></a>
                         <button class="btn btn-link text-dark d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
@@ -14,10 +13,14 @@
 
                     <section class="mt-3 mt-md-auto search-wrapper">
                         <section class="search-box">
+                           
                             <section class="search-textbox">
-                                <span><i class="fa fa-search"></i></span>
-                                <input id="search" type="text" class="" placeholder="جستجو ..." autocomplete="off">
+                                <form action="{% url 'products' %}" class="d-flex align-items-center">
+                                <span><button type="submit" class="fa fa-search test"></button></span>
+                                <input id="search" type="text" class="" placeholder="جستجو ..." autocomplete="off" name="search">
+                                     </form>
                             </section>
+                           
                             <section class="search-result visually-hidden">
                                 <section class="search-result-title">نتایج جستجو برای  <span class="search-words">"موبایل شیا"</span><span class="search-result-type">در دسته بندی ها</span></section>
                                 <section class="search-result-item"><a class="text-decoration-none" href="#"><i class="fa fa-link"></i> دسته موبایل و وسایل جانبی</a></section>

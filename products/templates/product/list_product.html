@@ -46,7 +46,7 @@
                           
                             {% for brand in brands %}
                                 <section class="form-check sidebar-brand-item">
-                                     <input class="form-check-input" type="checkbox" name="brand" value="{{ brand.id }}" id="brand-{{ brand.id }}" {% if brand.id|stringformat:"s" in selected_brands %}checked{% endif %}>
+                                     <input class="form-check-input" type="checkbox" name="brand" value="{{ brand.id }}" id="brand-{{ brand.id }}" {% if brand.id|stringformat:"s" in brand_ids %}checked{% endif %}>
                                     <label class="form-check-label d-flex justify-content-between" for="brand-{{ brand.id }}">
                         <span>{{ brand.title }}</span>
                          <span>{{ brand.title_english }}</span>
@@ -87,7 +87,9 @@
                 <main id="main-body" class="main-body col-md-9">
                     <section class="content-wrapper bg-white p-3 rounded-2 mb-2">
                         <section class="filters mb-3">
-                            <span class="d-inline-block border p-1 rounded bg-light">نتیجه جستجو برای : <span class="badge bg-info text-dark">"کتاب اثر مرک"</span></span>
+                        {% if search %}
+                            <span class="d-inline-block border p-1 rounded bg-light">نتیجه جستجو برای : <span class="badge bg-info text-dark">"{{search}}"</span></span>
+                        {% endif %} 
                             {% if filter_brand %}
                             {% for brands in filter_brand %}
                             <span class="d-inline-block border p-1 rounded bg-light">برند : <span class="badge bg-info text-dark">"{{ brands.title }}"</span></span>
