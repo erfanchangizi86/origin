@@ -75,6 +75,7 @@
                             <form method="get" action="{% url 'products' %}" id="form_price">
                             <section class="p-1"><input type="number" name="startPrice" id="startPrice" min="0" value="0" placeholder="قیمت از ..."></section>
                             <section class="p-1"><input type="number" name="endPrice" id="endPrice" min="0" value="{{max_price.price__max}}" max="{{ max_price.price__max }}" placeholder="قیمت تا ..."></section>
+                            
                             </form>
                         </section>
                     </section>

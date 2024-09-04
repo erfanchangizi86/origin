@@ -15,12 +15,11 @@
                         <section class="search-box">
                            
                             <section class="search-textbox">
-                                <form action="{% url 'products' %}" class="d-flex align-items-center">
-                                <span><button type="submit" class="fa fa-search test"></button></span>
-                                <input id="search" type="text" class="" placeholder="جستجو ..." autocomplete="off" name="search">
-                                     </form>
+                                <form action="{% url 'products' %}" class="d-flex align-items-center" id="form_search">
+                                <span onclick="Search_fild()"><i  class="fa fa-search test"></i></span>
+                                <input id="search" type="text" value="{% if search  %}{{ search }}{% endif %}" class="" placeholder="جستجو ..." autocomplete="off" name="search">
+                                </form>
                             </section>
-                           
                             <section class="search-result visually-hidden">
                                 <section class="search-result-title">نتایج جستجو برای  <span class="search-words">"موبایل شیا"</span><span class="search-result-type">در دسته بندی ها</span></section>
                                 <section class="search-result-item"><a class="text-decoration-none" href="#"><i class="fa fa-link"></i> دسته موبایل و وسایل جانبی</a></section>

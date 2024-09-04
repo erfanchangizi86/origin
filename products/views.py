@@ -23,6 +23,13 @@ class productListView(ListView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
+        queryset = queryset.select_related('brand')
+        queryset = queryset.prefetch_related('category_product')
+        search = self.request.GET.get('search')
+        if search is not None and search != '':
+            queryset = queryset.filter(Q(name__icontains=search)
+                                       | Q(short_body__icontains=search)
+                                       | Q(body__icontains=search))
         start_price = self.request.GET.get('startPrice')
         end_price = self.request.GET.get('endPrice')
         if start_price is not None:
@@ -36,17 +43,13 @@ class productListView(ListView):
         categories = self.kwargs.get('cate_gory')
         if categories:
             queryset = queryset.filter(category_product__url_name__iexact=categories)
+
+
         brand_ids = self.request.GET.getlist('brand')
         if brand_ids:
-            queryset = queryset.filter(brand_id__in=brand_ids)
+            queryset = queryset.filter(brand_id__in=brand_ids).distinct()
         else:
             queryset = queryset.filter(is_active=True)
-
-            search = self.request.GET.get('search')
-            if search is not None and search != '':
-                queryset = queryset.filter(Q(name__icontains=search)
-                                       | Q(short_body__icontains=search)
-                                       | Q(body__icontains=search))
         return queryset
 
     def get_context_data(self,*args,**kwargs):
