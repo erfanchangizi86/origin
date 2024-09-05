@@ -3,6 +3,8 @@ from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
 
+from account.models import User
+
 
 # Create your models here.
 class test_mixin(models.Model):
@@ -79,3 +81,17 @@ class Product(models.Model):
 
 class Comment_product(models.Model):
     title = models.CharField(max_length=200)
+
+
+
+class ProductVisit(models.Model):
+    product = models.ForeignKey('Product', on_delete=models.CASCADE, verbose_name='محصول')
+    ip = models.CharField(max_length=30, verbose_name='آی پی کاربر')
+    user = models.ForeignKey(User, null=True, blank=True, verbose_name='کاربر', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.product.name} / {self.ip}'
+
+    class Meta:
+        verbose_name = 'بازدید محصول'
+        verbose_name_plural = 'بازدیدهای محصول'

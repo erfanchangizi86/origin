@@ -5,7 +5,7 @@ from django.views.generic import ListView, DetailView
 from django.contrib.postgres.search import SearchVector
 
 from .forms import SearchForm
-from .models import Product, Brands
+from .models import Product, Brands,category
 from utils.category import get_all_categories
 from ffmpeg import input
 # Create your views here.
@@ -67,6 +67,10 @@ class productListView(ListView):
         search = self.request.GET.get('search')
         if search is not None and search != '':
             context['search'] = search
+
+        url_category = self.kwargs.get('cate_gory')
+        CA = category.objects.filter(is_active=True,is_deleted=False,url_name__iexact=url_category).first()
+        context['category'] = CA
         return context
 
 

@@ -96,8 +96,10 @@
                             <span class="d-inline-block border p-1 rounded bg-light">برند : <span class="badge bg-info text-dark">"{{ brands.title }}"</span></span>
                             {% endfor %}
                              {% endif %} 
+                            {% if category %}
+                            <span class="d-inline-block border p-1 rounded bg-light">دسته : <span class="badge bg-info text-dark">"{{ category.title }}"</span></span>
+                            {% endif %} 
                         
-                            <span class="d-inline-block border p-1 rounded bg-light">دسته : <span class="badge bg-info text-dark">"کتاب"</span></span>
                             {% if start_price %}
                             <span class="d-inline-block border p-1 rounded bg-light">قیمت از : <span class="badge bg-info text-dark">{{ start_price }}</span></span>
                             {% endif %} 
