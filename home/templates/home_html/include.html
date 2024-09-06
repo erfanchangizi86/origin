@@ -1,0 +1,69 @@
+{% load thumbnail %}
+{% load poll_extras %}
+                    <section class="col">
+                        <section class="content-wrapper bg-white p-3 rounded-2">
+                            <!-- start vontent header -->
+                            <section class="content-header">
+                                <section class="d-flex justify-content-between align-items-center">
+                                    <h2 class="content-header-title">
+                                        <span>{{body}}</span>
+                                    </h2>
+                                    <section class="content-header-link">
+                                        <a href="#">مشاهده همه</a>
+                                    </section>
+                                </section>
+                            </section>
+                            <!-- start vontent header -->
+                            <section class="lazyload-wrapper">
+                            <section class="lazyload light-owl-nav owl-carousel owl-theme owl-rtl owl-loaded owl-drag">
+                            <div class="owl-stage-outer">
+                                <div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all; width: 3965px;">
+                                    {% for product in products %}
+                                    	      <div class="owl-item active" style="width: 295px; margin-left: 10px;">
+                                        <section class="item">
+                                    <section class="lazyload-item-wrapper">
+                                        <section class="product">
+                                            <section class="product-add-to-cart"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="" data-bs-original-title="افزودن به سبد خرید" aria-label="افزودن به سبد خرید"><i class="fa fa-cart-plus"></i></a></section>
+                                            <section class="product-add-to-favorite"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="" data-bs-original-title="افزودن به علاقه مندی" aria-label="افزودن به علاقه مندی"><i class="fa fa-heart"></i></a></section>
+                                            <a class="product-link" href="{% url 'detail' slug=product.slug pk=product.id%}">
+                                                <section class="product-image">
+                                                    {% if product.image %}
+                                        	                {% thumbnail product.image "700x700" quality=100 crop="center" as im %}
+                                                            <img class="" src="{{ im.url }}" alt="">
+                                                    {% endthumbnail %}
+                                                    {% endif %}
+                                                </section>
+                                                <section class="product-colors"></section>
+                                                <section class="product-name"><h3>{{ product.short_body }}</h3></section>
+                                                <section class="product-price-wrapper">
+                                                    <section class="product-discount">
+                                                        {% if product.is_sale %}
+                                                        	<span class="product-old-price">{{product.price |price_sale}} </span>
+                                                        <span class="product-discount-amount">{{ product.discount_percent }}%</span>
+                                                    </section>
+                                                    <section class="product-price">{{ product.sale_price | price }}</section>
+                                                        {% else %}
+                                                    <section class="product-price">{{ product.price | price }}</section>
+                                                        {% endif %}
+
+                                                </section>
+                                                <section class="product-colors">
+                                                    <section class="product-colors-item" style="background-color: white;"></section>
+                                                    <section class="product-colors-item" style="background-color: blue;"></section>
+                                                    <section class="product-colors-item" style="background-color: red;"></section>
+                                                </section>
+                                            </a>
+                                        </section>
+                                    </section>
+                                </section></div>
+                                    {% endfor %}
+
+
+                                </div></div>
+                                <div class="owl-nav">
+                                    <button type="button" role="presentation" class="owl-prev disabled"><span aria-label="Previous">‹</span></button><button type="button" role="presentation" class="owl-next"><span aria-label="Next">›</span></button></div><div class="owl-dots disabled">
+
+                            </div></section>
+                        </section>
+                        </section>
+                    </section>

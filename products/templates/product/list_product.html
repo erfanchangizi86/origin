@@ -140,7 +140,14 @@
                                         <section class="product-colors"></section>
                                         <section class="product-name"><h3>{{ product.short_body }}</h3></section>
                                         <section class="product-price-wrapper">
-                                            <section class="product-price">{{ product.price|price }}</section>
+                                           
+                                            {% if product.is_sale %}
+                                             <span class="product-old-price">{{product.price |price_sale}} </span>
+                                             <span class="product-discount-amount">{{ product.discount_percent }}%</span>
+                                                    <section class="product-price">{{ product.sale_price | price }}</section>
+                                                        {% else %}
+                                                    <section class="product-price">{{ product.price | price }}</section>
+                                                        {% endif %}
                                         </section>
                                     </a>
                                 </section>

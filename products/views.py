@@ -4,8 +4,9 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from django.contrib.postgres.search import SearchVector
 
+from utils.servise import get_client_ip
 from .forms import SearchForm
-from .models import Product, Brands,category
+from .models import Product, Brands, category, ProductVisit
 from utils.category import get_all_categories
 from ffmpeg import input
 # Create your views here.
@@ -78,6 +79,23 @@ class productDetailView(DetailView):
     model = Product
     context_object_name = 'product'
     template_name = "product/detail_product.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        object_id = self.object
+        user_ip = get_client_ip(self.request)
+        user_id = None
+        if self.request.user.is_authenticated:
+            user_id = self.request.user.id
+
+        has_been_visited = ProductVisit.objects.filter(ip__iexact=user_ip,user_id=user_id, product_id=object_id.id).exists()
+        if not has_been_visited:
+            new_visit = ProductVisit(ip=user_ip, user_id=user_id, product_id=object_id.id)
+            new_visit.save()
+
+        return context
+
+
 
 
 

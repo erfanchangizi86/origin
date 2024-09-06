@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from products.models import Product, category, Brands
-
+from .models import ProductVisit
 
 @admin.action(description='صفر کردن قیمت محصول')
 def price_to_zero(modeladmin, request, queryset):
@@ -29,3 +29,6 @@ class BrandAdmin(admin.ModelAdmin):
     list_display = ('title','url_name')
     list_filter = ('title','url_name')
     search_fields = ('title','url_name')
+
+
+admin.site.register(ProductVisit)

@@ -8,3 +8,9 @@ def get_client_ip(request: HttpRequest):
     else:
         ip = request.META.get('REMOTE_ADDR')
     return ip
+
+
+
+def dis_count(value):
+    if value > 100:
+        return
