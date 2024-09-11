@@ -46,7 +46,9 @@ INSTALLED_APPS = [
     'sorl.thumbnail',
     'polls',
     'your_app',
-    'home'
+    'home',
+    'order_module',
+    'user_profile'
 ]
 
 MIDDLEWARE = [
@@ -140,7 +142,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
-
+LOGIN_URL = '/user/login'
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 

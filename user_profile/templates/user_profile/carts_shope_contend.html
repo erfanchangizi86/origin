@@ -1,0 +1,185 @@
+{% load thumbnail %}
+{% load poll_extras %}
+	<main id="main-body-one-col" class="main-body">
+
+        <!-- start cart -->
+        {% if orders.orderdetail_set.all %}
+        	 <section class="mb-4">
+            <section class="container-xxl">
+                <section class="row">
+                    <section class="col">
+                        <!-- start vontent header -->
+                        <section class="content-header">
+                            <section class="d-flex justify-content-between align-items-center">
+                                <h2 class="content-header-title">
+                                    <span>سبد خرید شما</span>
+                                </h2>
+                                <section class="content-header-link">
+                                    <!--<a href="#">مشاهده همه</a>-->
+                                </section>
+                            </section>
+                        </section>
+
+                        <section class="row mt-4">
+                            <section class="col-md-9 mb-3">
+                                <section class="content-wrapper bg-white p-3 rounded-2">
+
+                                    {% for order in orders.orderdetail_set.all %}
+                                    	<section class="cart-item d-md-flex py-3">
+                                        <section class="cart-img align-self-start flex-shrink-1">
+                                             {% if order.product.image %}
+                                        	{% thumbnail order.product.image "700x700" quality=100 crop="center" as im %}
+                                            <img class="" src="{{ im.url }}" alt="">
+                                                {% endthumbnail %}
+                                      
+                                        {% endif %} 
+                                        </section>
+                                        <section class="align-self-start w-100">
+                                            <p class="fw-bold">{{ order.product.short_body }}</p>
+                                            <p><span style="background-color: #523e02;" class="cart-product-selected-color me-1"></span> <span> قهوه ای</span></p>
+                                            <p><i class="fa fa-shield-alt cart-product-selected-warranty me-1"></i> <span> گارانتی اصالت و سلامت فیزیکی کالا</span></p>
+                                            <p><i class="fa fa-store-alt cart-product-selected-store me-1"></i> <span>کالا موجود در انبار</span></p>
+                                            <section>
+                                                <section class="cart-product-number d-inline-block ">
+                                                    <button class="cart-number-down" onclick="change_min_max({{ order.id }},'decrease')">-</button>
+                                                    <input class="" id="count_product" type="number" min="1"  step="1" value="{{ order.count }}" readonly="readonly">
+                                                    <button class="cart-number-up" onclick="change_min_max({{ order.id }},'increase')">+</button>
+                                                </section>
+                                                <a class="text-decoration-none ms-4 cart-delete" onclick="remove_product({{ order.id }})"><i class="fa fa-trash-alt"></i> حذف از سبد</a>
+                                            </section>
+                                        </section>
+                                        <section class="align-self-end flex-shrink-1">
+                                            {% if order.product.is_sale %}
+                                            	<section class="text-nowrap fw-bold">{{ order.price_is_sales | price }}</section>
+                                                {% else %}
+                                            	<section class="text-nowrap fw-bold">{{ order.price_is_sales | price }}</section>
+                                            {% endif %} 
+                                            
+                                        </section>
+                                    </section>
+                                    {% endfor %}
+                                </section>
+                            </section>
+                            <section class="col-md-3">
+                                <section class="content-wrapper bg-white p-3 rounded-2 cart-total-price">
+                                    <section class="d-flex justify-content-between align-items-center">
+                                        <p class="text-muted">قیمت کالاها ({{ count }})</p>
+                                        <p class="text-muted">{{ orders.total_price | price }}</p>
+                                    </section>
+
+                                    <section class="d-flex justify-content-between align-items-center">
+                                        <p class="text-muted">تخفیف کالاها</p>
+                                        <p class="text-danger fw-bolder">{{ orders.is_sale_prices | price }}</p>
+                                    </section>
+                                    <section class="border-bottom mb-3"></section>
+                                    <section class="d-flex justify-content-between align-items-center">
+                                        <p class="text-muted">جمع سبد خرید</p>
+                                        <p class="fw-bolder">{{ orders.calculate_total_price | price }}</p>
+                                    </section>
+
+                                    <p class="my-3">
+                                        <i class="fa fa-info-circle me-1"></i>کاربر گرامی  خرید شما هنوز نهایی نشده است. برای ثبت سفارش و تکمیل خرید باید ابتدا آدرس خود را انتخاب کنید و سپس نحوه ارسال را انتخاب کنید. نحوه ارسال انتخابی شما محاسبه و به این مبلغ اضافه شده خواهد شد. و در نهایت پرداخت این سفارش صورت میگیرد.
+                                    </p>
+
+
+                                    <section class="">
+                                        <a href="address.html" class="btn btn-danger d-block">تکمیل فرآیند خرید</a>
+                                    </section>
+
+                                </section>
+                            </section>
+                        </section>
+                    </section>
+                </section>
+
+            </section>
+        </section>
+        {% endif %} 
+       
+        <!-- end cart -->
+
+
+
+
+        <section class="mb-4">
+            <section class="container-xxl">
+                <section class="row">
+                    <section class="col">
+                        <section class="content-wrapper bg-white p-3 rounded-2">
+                            <!-- start vontent header -->
+                            <section class="content-header">
+                                <section class="d-flex justify-content-between align-items-center">
+                                    <h2 class="content-header-title">
+                                        <span>کالاهای مرتبط با سبد خرید شما</span>
+                                    </h2>
+                                    <section class="content-header-link">
+                                        <!--<a href="#">مشاهده همه</a>-->
+                                    </section>
+                                </section>
+                            </section>
+                            <!-- start vontent header -->
+                            <section class="lazyload-wrapper">
+                                <section class="lazyload light-owl-nav owl-carousel owl-theme owl-rtl owl-loaded owl-drag">
+                                <div class="owl-stage-outer">
+                                    <div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all; width: 3272px;">
+                                        {% for pro in product %}
+                                        <div class="owl-item active" style="width: 287.4px; margin-left: 10px;">
+                                        <section class="item">
+                                        <section class="lazyload-item-wrapper">
+                                            <section class="product">
+                                                <section class="product-add-to-cart"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="" data-bs-original-title="افزودن به سبد خرید" aria-label="افزودن به سبد خرید"><i class="fa fa-cart-plus"></i></a></section>
+                                                <section class="product-add-to-favorite"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="" data-bs-original-title="افزودن به علاقه مندی" aria-label="افزودن به علاقه مندی"><i class="fa fa-heart"></i></a></section>
+                                                <a class="product-link" href="{{ pro.get_absolute_url }}">
+                                                    <section class="product-image">
+                                                         {% if pro.image %}
+                                        	{% thumbnail pro.image "700x700" quality=100 crop="center" as im %}
+                                            <img class="" src="{{ im.url }}" alt="">
+                                                {% endthumbnail %}
+                                                    {% endif %}
+                                                    </section>
+                                                    <section class="product-name"><h3>{{ pro.short_body }}</h3></section>
+                                                    <section class="product-price-wrapper">
+                                                          {% if pro.is_sale %}
+                                                        	<span class="product-old-price">{{pro.price |price_sale}} </span>
+                                                        <span class="product-discount-amount">{{ pro.discount_percent }}%</span>
+                                                    </section>
+                                                    <section class="product-price">{{ pro.sale_price | price }}</section>
+                                                        {% else %}
+                                                    <section class="product-price">{{ pro.price | price }}</section>
+                                                        {% endif %}
+                                                    <section class="product-colors">
+                                                        <section class="product-colors-item" style="background-color: yellow;"></section>
+                                                        <section class="product-colors-item" style="background-color: green;"></section>
+                                                        <section class="product-colors-item" style="background-color: white;"></section>
+                                                        <section class="product-colors-item" style="background-color: blue;"></section>
+                                                        <section class="product-colors-item" style="background-color: red;"></section>
+                                                    </section>
+                                                </a>
+                                            </section>
+                                        </section>
+                                    </section>
+                                </div>	
+                                        {% endfor %}
+                                        
+                                    
+                                    </div>
+                                </div>
+                                    <div class="owl-nav"><button type="button" role="presentation" class="owl-prev disabled"><span aria-label="Previous">‹</span></button><button type="button" role="presentation" class="owl-next"><span aria-label="Next">›</span></button></div><div class="owl-dots disabled"></div></section>
+                            </section>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
+
+
+    </main>
+
+    <section class="container-xxl body-container">
+        <aside id="sidebar" class="sidebar">
+
+        </aside>
+        <main id="main-body" class="main-body">
+
+        </main>
+    </section>

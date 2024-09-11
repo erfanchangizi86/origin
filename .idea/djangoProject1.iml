@@ -19,6 +19,7 @@
     <orderEntry type="jdk" jdkName="Python 3.12 (djangoProject1)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="popper.js" level="application" />
+    <orderEntry type="library" name="sweetalert2" level="application" />
   </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Django" />
@@ -27,6 +28,7 @@
         <option value="$MODULE_DIR$/templates" />
         <option value="$MODULE_DIR$/products/templates" />
         <option value="$MODULE_DIR$/account/templates" />
+        <option value="$MODULE_DIR$/user_profile/templates" />
       </list>
     </option>
   </component>

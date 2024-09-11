@@ -1,6 +1,6 @@
 {% extends 'repository/base.html' %}
 {% load thumbnail %}
-
+{% load poll_extras %}
 {% block contend %}
 	<main id="main-body-one-col" class="main-body">
 
@@ -77,7 +77,7 @@
                                         <section>
                                             <section class="cart-product-number d-inline-block ">
                                                 <button class="cart-number-down" type="button">-</button>
-                                                <input class="" type="number" min="1" max="5" step="1" value="1" readonly="readonly">
+                                                <input class="" id="count" type="number" min="1" max="10" step="1" value="1" readonly="readonly">
                                                 <button class="cart-number-up" type="button">+</button>
                                             </section>
                                         </section>
@@ -94,22 +94,22 @@
                                 <section class="content-wrapper bg-white p-3 rounded-2 cart-total-price">
                                     <section class="d-flex justify-content-between align-items-center">
                                         <p class="text-muted">قیمت کالا</p>
-                                        <p class="text-muted">1,326,000 <span class="small">تومان</span></p>
+                                        <p class="text-muted">{{ product.price | price}} <span class="small"></span></p>
                                     </section>
 
                                     <section class="d-flex justify-content-between align-items-center">
                                         <p class="text-muted">تخفیف کالا</p>
-                                        <p class="text-danger fw-bolder">260,000 <span class="small">تومان</span></p>
+                                        <p class="text-danger fw-bolder">{{ product.sale_price_di|price }}<span class="small"></span></p>
                                     </section>
 
                                     <section class="border-bottom mb-3"></section>
 
                                     <section class="d-flex justify-content-end align-items-center">
-                                        <p class="fw-bolder">1,066,000 <span class="small">تومان</span></p>
+                                        <p class="fw-bolder">{{ product.sale_price |price }}<span class="small"></span></p>
                                     </section>
 
                                     <section class="">
-                                        <a id="next-level" href="#" class="btn btn-danger d-block">افزودن به سبد خرید</a>
+                                        <a id="next-level" onclick="add_to_product({{ product.id }})" class="btn btn-danger d-block">افزودن به سبد خرید</a>
                                     </section>
 
                                 </section>

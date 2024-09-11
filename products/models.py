@@ -60,7 +60,7 @@ class Product(models.Model):
                             verbose_name='عنوان در url', allow_unicode=True)
 
     category_product = models.ManyToManyField(category, verbose_name="دسته بندی",
-                                              db_index=True, null=True)
+                                              db_index=True)
     brand = models.ForeignKey(Brands, on_delete=models.CASCADE, verbose_name='برند', null=True, blank=True)
 
     # comments = GenericRelation('Comment')
@@ -73,8 +73,11 @@ class Product(models.Model):
         self.name = self.name.title()
         super().save(*args, **kwargs)
 
+    def sale_price_di(self):
+        return self.price - self.sale_price
+
     def get_absolute_url(self):
-        return reverse("detail", args={'slug': self.slug, 'id': self.id})
+        return reverse("detail", args=[self.slug, self.id])
 
     class Meta:
         verbose_name = 'محصول '
@@ -96,3 +99,12 @@ class ProductVisit(models.Model):
     class Meta:
         verbose_name = 'بازدید محصول'
         verbose_name_plural = 'بازدیدهای محصول'
+
+class product_galry(models.Model):
+    image = models.ImageField(upload_to="products/images/galry")
+    product_gallery = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name="گالری")
+    is_active = models.BooleanField(default=True, verbose_name="فعال/غیرفعال")
+    is_deleted = models.BooleanField(default=False, verbose_name="حذف شده/حذف نشده")
+
+    def __str__(self):
+        return f"{self.product_gallery}"

@@ -23,3 +23,43 @@ function Search_fild() {
     var forms1 =  $('#form_search');
     forms1.submit()
 }
+
+
+function add_to_product(ProductId) {
+    var count = $('#count').val();
+    $.get('/cart/add/',{ProductId,count}).then(rest =>{
+        const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+             }
+                    });
+            Toast.fire({
+                icon: rest.icons,
+                  title: rest.title
+                        })
+                            })
+                            }
+                            
+                            
+                            
+function change_min_max(id,value) {
+    var body = $("#order-detail-content")
+    $.get('/product_shope/min-mix/',
+        {id,value}
+    ).then(ret =>{
+        body.html(ret.body)
+    })
+}
+
+function remove_product(id) {
+    var body = $("#order-detail-content")
+    $.get('/product_shope/remove/',{id}).then(rest =>{
+        body.html(rest.body)
+    })
+}
