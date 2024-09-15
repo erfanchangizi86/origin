@@ -44,6 +44,8 @@ class Brands(test_mixin):
         verbose_name_plural = 'برند ها'
 
 
+
+
 class Product(models.Model):
     image = models.ImageField(upload_to="products/images")
     name = models.CharField(max_length=100, db_index=True, verbose_name='عنوان')

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from products.models import Product, category, Brands
+from products.models import Product, category, Brands,product_galry
 from .models import ProductVisit
 
 @admin.action(description='صفر کردن قیمت محصول')
@@ -32,3 +32,5 @@ class BrandAdmin(admin.ModelAdmin):
 
 
 admin.site.register(ProductVisit)
+
+admin.site.register(product_galry)
