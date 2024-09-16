@@ -2,7 +2,7 @@ from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
-
+from django.utils import timezone
 from account.models import User
 
 
@@ -65,8 +65,6 @@ class Product(models.Model):
                                               db_index=True)
     brand = models.ForeignKey(Brands, on_delete=models.CASCADE, verbose_name='برند', null=True, blank=True)
 
-    # comments = GenericRelation('Comment')
-
     def __str__(self):
         return f"{self.name} ({self.price})"
 
@@ -86,8 +84,11 @@ class Product(models.Model):
         verbose_name_plural = 'محصولات '
 
 
-class Comment_product(models.Model):
-    title = models.CharField(max_length=200)
+class comment(models.Model):
+    product = models.ForeignKey('Product', on_delete=models.CASCADE, verbose_name='محصول')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='کاربر', null=True, blank=True)
+    times = models.DateTimeField(verbose_name='تاریخ', auto_now_add=True)
+    text = models.TextField(verbose_name='متن نظر', null=True, blank=True)
 
 
 class ProductVisit(models.Model):

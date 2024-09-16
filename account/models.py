@@ -4,9 +4,17 @@ from django.db import models
 
 # Create your models here.
 class User(AbstractUser):
-    email_active = models.CharField(max_length=72,null=True,blank=True)
-    avatar = models.ImageField(upload_to='avatars',null=True,blank=True)
+    email_active = models.CharField(max_length=72, null=True, blank=True)
+    avatar = models.ImageField(upload_to='avatars', null=True, blank=True)
     phone_number = models.CharField(max_length=11)
+
+    def __str__(self):
+        if self.first_name and self.last_name:
+            return self.get_full_name()
+        elif self.email:
+            return self.email
+        else:
+            return self.username
 
 
 class Profile(models.Model):
