@@ -14,4 +14,7 @@ class SearchForm(forms.Form):
 
 
 class CommentForm(forms.Form):
-    pass
+    text = forms.CharField(max_length=120, error_messages=error
+                           ,widget=forms.Textarea(attrs={'class':'form-control form-control-sm',
+                                                         'placeholder':'دیدگاه شما ...',
+                                                         'rows':4}))

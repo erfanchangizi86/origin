@@ -44,8 +44,6 @@ class Brands(test_mixin):
         verbose_name_plural = 'برند ها'
 
 
-
-
 class Product(models.Model):
     image = models.ImageField(upload_to="products/images")
     name = models.CharField(max_length=100, db_index=True, verbose_name='عنوان')
@@ -66,7 +64,10 @@ class Product(models.Model):
     brand = models.ForeignKey(Brands, on_delete=models.CASCADE, verbose_name='برند', null=True, blank=True)
 
     def __str__(self):
-        return f"{self.name} ({self.price})"
+        if self.sale_price and self.name:
+            return f"{self.name} ({self.price})"
+        else:
+            return self.short_body
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
@@ -89,6 +90,16 @@ class comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='کاربر', null=True, blank=True)
     times = models.DateTimeField(verbose_name='تاریخ', auto_now_add=True)
     text = models.TextField(verbose_name='متن نظر', null=True, blank=True)
+    is_active = models.BooleanField(default=False,verbose_name='فعال/غیر فعال')
+    class Meta:
+        verbose_name = "کامنت"
+        verbose_name_plural = "کامنت ها"
+
+    def __str__(self):
+        if self.text:
+            return self.text
+        else:
+            return  'بدون متن'
 
 
 class ProductVisit(models.Model):
@@ -102,6 +113,7 @@ class ProductVisit(models.Model):
     class Meta:
         verbose_name = 'بازدید محصول'
         verbose_name_plural = 'بازدیدهای محصول'
+
 
 class product_galry(models.Model):
     image = models.ImageField(upload_to="products/images/galry")

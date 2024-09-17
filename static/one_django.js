@@ -63,3 +63,7 @@ function remove_product(id) {
         body.html(rest.body)
     })
 }
+
+function form_comment() {
+    $('#comment').submit()
+}

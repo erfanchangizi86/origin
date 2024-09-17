@@ -6,7 +6,7 @@ from django.contrib.postgres.search import SearchVector
 
 from utils.servise import get_client_ip
 from .forms import SearchForm
-from .models import Product, Brands, category, ProductVisit, product_galry
+from .models import Product, Brands, category, ProductVisit, product_galry, comment
 from utils.category import get_all_categories
 from ffmpeg import input
 # Create your views here.
@@ -81,6 +81,7 @@ class productDetailView(DetailView):
     template_name = "product/detail_product.html"
 
     def get_context_data(self, **kwargs):
+
         context = super().get_context_data(**kwargs)
         object_id:Product = self.object
         gallery = list(product_galry.objects.filter(product_gallery_id=object_id.id).only('image'))
@@ -100,6 +101,7 @@ class productDetailView(DetailView):
         related_products = Product.objects.filter(category_product__in=categories_in_cart).exclude(
             id=object_id.id)[:16]
         context['related_products'] = related_products
+        context['comment'] = comment.objects.filter(is_active=True,product_id=object_id.id)
         return context
 
 

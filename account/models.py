@@ -9,12 +9,11 @@ class User(AbstractUser):
     phone_number = models.CharField(max_length=11)
 
     def __str__(self):
-        if self.first_name and self.last_name:
+
+        if self.first_name != "" and self.last_name != "":
             return self.get_full_name()
-        elif self.email:
-            return self.email
-        else:
-            return self.username
+        return self.email
+
 
 
 class Profile(models.Model):
