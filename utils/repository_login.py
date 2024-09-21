@@ -1,9 +1,11 @@
 from django.contrib.auth import login
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
+from django.views import View
 
 from account.forms import RegistrationLoginForm
 from account.models import User
+from products.forms import CommentForm
 
 
 class RepositoryLogin:
@@ -35,3 +37,13 @@ class RepositoryLogin:
 
 
 
+class Comment_form(View):
+    def get(self,request:HttpRequest):
+        forms = CommentForm(self.request.GET)
+        return render(request,'product/detail_product.html',context={'form':forms})
+    def post(self,request:HttpRequest):
+        forms = CommentForm(self.request.POST)
+        if forms.is_valid():
+            text=forms.cleaned_data.get('text')
+
+        return render(request,'product/detail_product.html',context={'form':forms})

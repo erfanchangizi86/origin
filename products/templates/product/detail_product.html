@@ -257,10 +257,11 @@
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </section>
                                                     <section class="modal-body">
-                                                        <form class="row" id="comment">
+                                                        <form class="row" id="comment" method="post" action="{% url 'detail' product.slug product.id %}">
+                                                            {% csrf_token %}
                                                             <section class="col-12 mb-2">
-                                                                <label for="comment" class="form-label mb-1">دیدگاه شما</label>
-                                                                <textarea class="form-control form-control-sm" id="comment" placeholder="دیدگاه شما ..." rows="4"></textarea>
+                                                                <label for="comment" class="form-label mb-1">{{ form.text.label_tag }}</label>
+                                                                {{ form.text }}
                                                             </section>
 
                                                         </form>
@@ -274,15 +275,18 @@
                                         </section>
                                     </section>
                                     {% if comment %}
+                                        {% for C in comment %}
                                     	   <section class="product-comment">
                                         <section class="product-comment-header d-flex justify-content-start">
-                                            <section class="product-comment-date">۲۱ مرداد ۱۴۰۰</section>
-                                            <section class="product-comment-title">مجتبی مجدی</section>
+                                            <section class="product-comment-date">{{ C.times|times }}</section>
+                                            <section class="product-comment-title">{{ C.user }}</section>
                                         </section>
                                         <section class="product-comment-body">
-                                            با این تخفیف قیمت خیلی خوبه
+                                           {{ C.text }}
                                         </section>
                                     </section>
+                                        {% endfor %}
+                                        
                                         {% else %}
                                         <br>
                                         <div class="text-center comment-add-button ">"هنوز دیدگاهی وجود ندارد."</div>

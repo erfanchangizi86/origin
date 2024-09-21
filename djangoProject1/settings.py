@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'your_app',
     'home',
     'order_module',
-    'user_profile'
+    'user_profile',
 ]
 
 MIDDLEWARE = [

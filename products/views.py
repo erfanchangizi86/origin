@@ -1,11 +1,12 @@
 from django.db.models import Max, Q
-from django.http import HttpResponseBadRequest
+from django.http import HttpResponseBadRequest, HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
 from django.views.generic import ListView, DetailView
 from django.contrib.postgres.search import SearchVector
 
 from utils.servise import get_client_ip
-from .forms import SearchForm
+from .forms import SearchForm, CommentForm
 from .models import Product, Brands, category, ProductVisit, product_galry, comment
 from utils.category import get_all_categories
 from ffmpeg import input
@@ -84,27 +85,45 @@ class productDetailView(DetailView):
 
         context = super().get_context_data(**kwargs)
         object_id:Product = self.object
+        # گالری تصاویر
+
         gallery = list(product_galry.objects.filter(product_gallery_id=object_id.id).only('image'))
         gallery.insert(0,object_id)
         context['gallery'] = gallery
+        # بررسی بازدید محصول
+
         user_ip = get_client_ip(self.request)
         user_id = None
         if self.request.user.is_authenticated:
             user_id = self.request.user.id
-
         has_been_visited = ProductVisit.objects.filter(ip__iexact=user_ip,user_id=user_id, product_id=object_id.id).exists()
         if not has_been_visited:
             new_visit = ProductVisit(ip=user_ip, user_id=user_id, product_id=object_id.id)
             new_visit.save()
 
+        # محصولات مرتبط
         categories_in_cart = Product.objects.filter(id=object_id.id).values_list('category_product', flat=True)
         related_products = Product.objects.filter(category_product__in=categories_in_cart).exclude(
             id=object_id.id)[:16]
         context['related_products'] = related_products
-        context['comment'] = comment.objects.filter(is_active=True,product_id=object_id.id)
+        # نظرات محصول
+
+        comments = comment.objects.filter(is_active=True,product_id=object_id.id)
+        context['comment'] = comments
+
+        form = CommentForm(self.request.POST or None)
+        context['form'] = form
+
         return context
 
-
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            text = form.cleaned_data.get('text')
+            comment.objects.create(product_id=self.object.id, text=text,is_active=True,user_id=self.request.user.id)
+            return HttpResponseRedirect(reverse('detail',args=[self.object.slug, self.object.id]))
+        return self.get(request, *args, **kwargs)
 
 
 

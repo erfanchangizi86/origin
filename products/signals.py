@@ -1,7 +1,7 @@
 from django.db.models.signals import post_save,pre_save
 from django.dispatch import receiver
 
-from products.models import Product
+from products.models import Product, comment
 
 
 @receiver(pre_save, sender=Product)
@@ -12,3 +12,8 @@ def calculate_discount(sender, instance, **kwargs):
     else:
         instance.sale_price = 0
 
+
+@receiver(pre_save, sender=comment)
+def comment_product(sender, instance:comment, **kwargs):
+    if instance.is_delete :
+        instance.delete()
