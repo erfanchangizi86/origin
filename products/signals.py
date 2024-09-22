@@ -14,6 +14,6 @@ def calculate_discount(sender, instance, **kwargs):
 
 
 @receiver(pre_save, sender=comment)
-def comment_product(sender, instance:comment, **kwargs):
-    if instance.is_delete :
-        instance.delete()
+def comment_product(sender, instance, **kwargs):
+    if instance.is_delete:
+        com,de = comment.objects.filter(id=instance.id,user_id=instance.user_id).delete()
