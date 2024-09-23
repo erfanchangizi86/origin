@@ -90,8 +90,9 @@ class comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='کاربر', null=True, blank=True)
     times = models.DateTimeField(verbose_name='تاریخ', auto_now_add=True)
     text = models.TextField(verbose_name='متن نظر', null=True, blank=True)
-    is_active = models.BooleanField(default=False,verbose_name='فعال/غیر فعال')
-    is_delete = models.BooleanField(default=False,verbose_name='پاک کردن _ نکردن')
+    is_active = models.BooleanField(default=False, verbose_name='فعال/غیر فعال')
+    is_delete = models.BooleanField(default=False, verbose_name='پاک کردن _ نکردن')
+
     class Meta:
         verbose_name = "کامنت"
         verbose_name_plural = "کامنت ها"
@@ -100,7 +101,7 @@ class comment(models.Model):
         if self.text:
             return self.text
         else:
-            return  'بدون متن'
+            return 'بدون متن'
 
 
 class ProductVisit(models.Model):
