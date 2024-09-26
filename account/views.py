@@ -1,8 +1,10 @@
+import random
+
 from django.shortcuts import render, redirect
 from django.views import View
 from .forms import RegistrationForm, RegistrationLoginForm
 from utils.repository_login import RepositoryLogin
-
+from kavenegar import KavenegarAPI
 # Create your views here.
 login_user = RepositoryLogin()
 
@@ -19,8 +21,8 @@ class Register(View):
         forms = self.class_form(request.POST)
         if forms.is_valid():
             data_user = forms.cleaned_data.get('identifier')
-            data_pass = forms.cleaned_data.get('confirm_password')
-            login_user.register(data_user, data_pass)
+            otp = str(random.randint(100000, 999999))
+            login_user.register(data_user, otp)
             return redirect('login')
         return render(request, self.template_name, {'form': forms})
 
@@ -42,3 +44,9 @@ class Login(View):
             if user:
                 return redirect('products')
         return render(request, self.template_name, {'form': forms})
+
+
+
+
+
+

@@ -40,15 +40,18 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.humanize',
     'django.contrib.staticfiles',
+    # app
     'account',
     'products',
+    'home',
+    'order_module',
+    'user_profile',
+    # module
     'django_render_partial',
     'sorl.thumbnail',
     'polls',
     'your_app',
-    'home',
-    'order_module',
-    'user_profile',
+    'otp_twilio'
 ]
 
 MIDDLEWARE = [

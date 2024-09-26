@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from account.models import User
+from account.models import User,Profile
 
 
 # Register your models here.
@@ -9,4 +9,4 @@ class admin_user(admin.ModelAdmin):
     list_display = ('username', 'email', 'is_staff')
 
 
-
+admin.site.register(Profile)
