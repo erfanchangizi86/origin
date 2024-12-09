@@ -1,0 +1,27 @@
+{% extends 'repository/base.html' %}
+{% block contend %}
+    <section class="vh-100 d-flex justify-content-center align-items-center pb-5">
+        <section class="login-wrapper mb-5">
+            <section class="login-logo">
+                <img src="/static/assets/images/logo/4.png" alt="">
+            </section>
+            <form action="" method="post"> 
+            <section class="login-title">کد فعال سازی</section>
+            <section class="login-info form-control-lg"></section>
+                 {% csrf_token %}
+            <section class="login-input-text">
+                {% for foo in form %}
+                    <div class="login-info">{{ foo.label_tag }}</div>
+                	{{ foo }}
+                    <div class="login-info text-danger">{{ foo.errors }}</div>
+                {% endfor %}
+               
+                
+                
+                
+            </section>
+            <section class="login-btn d-grid g-2"><button type="submit" class="btn btn-danger">ورود به آمازون</button></section>
+                </form>
+        </section>
+    </section>
+{% endblock %}

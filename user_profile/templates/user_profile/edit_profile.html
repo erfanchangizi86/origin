@@ -1,0 +1,23 @@
+{% extends 'repository/base.html' %}
+{% load widget_tweaks %}
+{% block contend %}
+    <form  method="post">
+    {% csrf_token %}
+    <section class="input-group-lg m-12 col-md-8 mx-auto ">
+    {% for field in form %}
+        {{ field.label }} 
+        {% render_field field class='form-control' %}
+        <br>
+            {% for error in field.errors %}
+            <div class="text-danger"><h5>{{ error }}</h5></div>
+                <br>
+                
+        {% endfor %}
+        {% endfor %}
+        <button type="submit" class=" btn btn-success">ویرایش</button>
+        <br>
+        <hr>
+    </section>
+       
+    </form>
+{% endblock %}

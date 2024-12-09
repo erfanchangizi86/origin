@@ -45,7 +45,9 @@
                                 <section><a class="dropdown-item" href="my-orders.html"><i class="fa fa-newspaper"></i>سفارشات</a></section>
                                 <section><a class="dropdown-item" href="my-favorites.html"><i class="fa fa-heart"></i>لیست علاقه مندی</a></section>
                                 <section><hr class="dropdown-divider"></section>
-                                <section><a class="dropdown-item" href="#"><i class="fa fa-sign-out-alt"></i>خروج</a></section>
+                                {% if request.user.is_authenticated %}
+                                <section><a class="dropdown-item" href="{% url 'logout' %}"><i class="fa fa-sign-out-alt"></i>خروج</a></section>
+                                {% endif %} 
 
                             </section>
                         </section>

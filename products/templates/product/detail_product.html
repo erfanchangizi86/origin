@@ -279,7 +279,12 @@
                                     	   <section class="product-comment">
                                         <section class="product-comment-header d-flex justify-content-start">
                                             <section class="product-comment-date">{{ C.times|times }}</section>
-                                            <section class="product-comment-title">{{ C.user }}</section>
+                                            {% if  C.user %}
+                                            	 <section class="product-comment-title">{{ C.user }}</section>
+                                                {% else %}
+                                            	 <section class="product-comment-title">"بدون نام"</section>
+                                            {% endif %} 
+                                           
                                         </section>
                                         <section class="product-comment-body">
                                            {{ C.text }}

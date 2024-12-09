@@ -108,6 +108,7 @@
                         <section class="content-wrapper bg-white p-3 rounded-2">
                             <!-- start vontent header -->
                             <section class="content-header">
+                              
                                 <section class="d-flex justify-content-between align-items-center">
                                     <h2 class="content-header-title">
                                         <span>کالاهای مرتبط با سبد خرید شما</span>
@@ -118,7 +119,8 @@
                                 </section>
                             </section>
                             <!-- start vontent header -->
-                            <section class="lazyload-wrapper">
+                        {% if product %}
+                        	<section class="lazyload-wrapper">
                                 <section class="lazyload light-owl-nav owl-carousel owl-theme owl-rtl owl-loaded owl-drag">
                                 <div class="owl-stage-outer">
                                     <div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all; width: 3272px;">
@@ -166,6 +168,10 @@
                                 </div>
                                     <div class="owl-nav"><button type="button" role="presentation" class="owl-prev disabled"><span aria-label="Previous">‹</span></button><button type="button" role="presentation" class="owl-next"><span aria-label="Next">›</span></button></div><div class="owl-dots disabled"></div></section>
                             </section>
+                            {% else %}
+                            
+                        {% endif %} 
+                            
                         </section>
                     </section>
                 </section>

@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     'sorl.thumbnail',
     'polls',
     'your_app',
-    'otp_twilio'
+    'otp_twilio',
+    'widget_tweaks'
 ]
 
 MIDDLEWARE = [
